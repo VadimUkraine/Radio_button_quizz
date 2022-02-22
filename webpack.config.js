@@ -47,6 +47,10 @@ const webpackConfigCommon = {
   module: {
     rules: [
       {
+        test: /\.(png|jpg|svg|jpeg|gif)$/,
+        type: 'asset/resource',
+      },
+      {
         test: /\.scss$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },

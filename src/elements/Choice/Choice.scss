@@ -1,0 +1,37 @@
+.choice {
+  font-size: 12px;
+  padding-left: 15px;
+  display: flex;
+  cursor: pointer;
+  margin: 15px 0 0 0;
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+
+  svg {
+    fill: green;
+    margin-left: 5px;
+  }
+
+  &__content {
+    display: inline-block;
+    margin-left: 19px;
+    border: 1px solid rgb(201, 201, 201);
+    border-radius: 2px;
+    padding: 5px 8px 5px 15px;
+
+    &-order {
+      color: #f617c5fa;
+      margin-right: 5px;
+      font-weight: bol;
+    }
+
+    &--selected {
+      border: 1px solid #f617c5fa;
+
+      &-correctly {
+        border: 1px solid green;
+      }
+    }
+  }
+}

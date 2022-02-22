@@ -1,0 +1,17 @@
+.geo-exercise {
+  border: 2px solid rgb(201, 201, 201);
+  width: 480px;
+  margin: 0 auto;
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
+}
+
+.loader {
+  color: blue;
+  text-align: center;
+  font-weight: bold;
+}
