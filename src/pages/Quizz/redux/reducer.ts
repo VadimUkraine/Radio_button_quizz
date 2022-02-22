@@ -1,9 +1,16 @@
-import { quizzActionTypes, Quizz, GET_QUIZZ_SUCCESS } from '../types';
+import {
+  quizzActionTypes,
+  Quizz,
+  GET_QUIZZ_REQUEST,
+  GET_QUIZZ_SUCCESS,
+  GET_QUIZZ_FAILURE,
+  ErrorHttpAction,
+} from '../types';
 
 export type QuizzState = {
   data: Quizz;
   isFetching: boolean;
-  error: false;
+  error: false | ErrorHttpAction;
 };
 
 const initialState: QuizzState = {
@@ -100,7 +107,7 @@ const initialState: QuizzState = {
       },
     ],
   },
-  isFetching: true,
+  isFetching: false,
   error: false,
 };
 
@@ -114,6 +121,17 @@ export const quizzReducer = (
         ...state,
         data: action.payload,
         isFetching: false,
+      };
+    case GET_QUIZZ_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.payload,
+      };
+    case GET_QUIZZ_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
       };
     default:
       return state;

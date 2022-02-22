@@ -2,7 +2,7 @@ export type CorrectAnswer = {
   value: string;
 };
 
-export type Declaration = {
+export type ResponseDeclaration = {
   identifier: string;
   correctResponse: CorrectAnswer;
 };
@@ -27,15 +27,48 @@ export type Quizz = {
   identifier: string;
   title: string;
   subtitle: string;
-  responseDeclaration: Declaration[];
+  responseDeclaration: ResponseDeclaration[];
   elements: QuizzElement[];
   options: QuizzOption[];
 };
 
-export const GET_QUIZZ_SUCCESS = 'GET_QUIZZES_SUCCESS';
+export enum ChoiceOrder {
+  a,
+  b,
+  c,
+  d,
+  e,
+  f,
+  g,
+  h,
+  i,
+}
+
+export type SelectedChoices = {
+  questionIdentifier: string;
+  choice: string;
+};
+
+export type ErrorHttpAction = string;
+
+export const GET_QUIZZ_REQUEST = 'GET_QUIZZ_REQUEST';
+export type GetQuizzAction = {
+  type: typeof GET_QUIZZ_REQUEST;
+};
+
+export const GET_QUIZZ_SUCCESS = 'GET_QUIZZ_SUCCESS';
 export type GetQuizzSuccessAction = {
   type: typeof GET_QUIZZ_SUCCESS;
   payload: Quizz;
 };
 
-export type quizzActionTypes = GetQuizzSuccessAction;
+export const GET_QUIZZ_FAILURE = 'GET_QUIZZ_FAILURE';
+export type GetQuizzFailureAction = {
+  type: typeof GET_QUIZZ_FAILURE;
+  payload: ErrorHttpAction;
+};
+
+export type quizzActionTypes =
+  | GetQuizzAction
+  | GetQuizzSuccessAction
+  | GetQuizzFailureAction;

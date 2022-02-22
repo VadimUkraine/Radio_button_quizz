@@ -64,9 +64,9 @@
     "stats": "cross-env NODE_ENV=production webpack --profile --json > stats.json && webpack-bundle-analyzer bundle/output/path/stats.json",
     "typescript": "tsc",
     "lint": "yarn typescript && yarn lint:ts",
-    "lint:ts": "eslint client/* --ext .ts,.tsx --color",
-    "eslint": "eslint client/*",
-    "eslint:fix": "eslint client/* --fix",
+    "lint:ts": "eslint src/* --ext .ts,.tsx --color",
+    "eslint": "eslint src/*",
+    "eslint:fix": "eslint src/* --fix",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -75,6 +75,7 @@
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
     "react-redux": "^7.2.6",
+    "react-tooltip": "^4.2.21",
     "redux": "^4.1.2",
     "redux-saga": "^1.1.3"
   }

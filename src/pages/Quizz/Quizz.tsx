@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Helmet } from 'react-helmet';
+import GeoExercise from './components/GeoExercise';
 
 export const Quizz: FC = () => (
   <>
@@ -9,6 +10,6 @@ export const Quizz: FC = () => (
       <link rel="canonical" href="http://localhost:4200" />
       <title>Quizz</title>
     </Helmet>
-    Quizz
+    <GeoExercise />
   </>
 );
