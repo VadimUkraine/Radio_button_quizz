@@ -2,6 +2,7 @@ import React from 'react';
 
 export const UndoArrowIcon = () => (
   <svg
+    version="1.1"
     width="18px"
     height="18px"
     viewBox="0 0 32 32"
