@@ -35,30 +35,33 @@ export const Choice: FC<ChoiceProps> = ({
   isFreezeSelection,
   isKeepSelection,
 }: ChoiceProps): ReactElement => {
-  const isCorrectChoiceSelected = useMemo(() => {
-    if (
-      isValidationMode ||
-      ((isFreezeSelection || isKeepSelection) && !isValidationMode)
-    ) {
-      const selectedChoice = selectedChoices.find(
+  const rightSelectedChoice = useMemo(
+    () =>
+      selectedChoices.find(
         (el) =>
           el.choice ===
           correctAnswers.filter(
             (item) => item.identifier === responseIdentifier
           )[0].correctResponse.value
-      );
+      ),
+    [correctAnswers, selectedChoices, responseIdentifier]
+  );
 
-      return selectedChoice?.choice === choice.identifier;
+  const isCorrectChoiceSelected = useMemo(() => {
+    if (
+      isValidationMode ||
+      ((isFreezeSelection || isKeepSelection) && !isValidationMode)
+    ) {
+      return rightSelectedChoice?.choice === choice.identifier;
     }
 
     return false;
   }, [
-    correctAnswers,
-    selectedChoices,
     isValidationMode,
     isFreezeSelection,
     isKeepSelection,
-    responseIdentifier,
+    choice,
+    rightSelectedChoice,
   ]);
 
   const isSelected = useMemo(
@@ -80,26 +83,11 @@ export const Choice: FC<ChoiceProps> = ({
 
   const isSelectedWrongly = useMemo(() => {
     if (isValidationMode) {
-      const selectedChoice = selectedChoices.find(
-        (el) =>
-          el.choice === choice.identifier &&
-          el.choice !==
-            correctAnswers.filter(
-              (item) => item.identifier === responseIdentifier
-            )[0].correctResponse.value
-      );
-
-      return !!selectedChoice;
+      return isSelected && !rightSelectedChoice;
     }
 
     return false;
-  }, [
-    correctAnswers,
-    responseIdentifier,
-    selectedChoices,
-    isValidationMode,
-    choice,
-  ]);
+  }, [isValidationMode, rightSelectedChoice, isSelected]);
 
   return (
     <p
