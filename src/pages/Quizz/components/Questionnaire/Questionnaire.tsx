@@ -43,19 +43,20 @@ export const Questionnaire: FC = () => {
 
   const tryAgainOption = useMemo(() => {
     const option = options.find((el) => el.type === TRY_AGAIN);
+
     return option?.value || CLEAR_OPTION;
   }, [options]);
 
   const handleCheckAnswers = useCallback(() => {
-    const correctAnsweres = 0;
     const score = correctAnswers.reduce((total, el) => {
       const correctAnswer = selectedChoices.find(
         (item) =>
           item.questionIdentifier === el.identifier &&
           item.choice === el.correctResponse.value
       );
+
       return correctAnswer ? total + 1 : total;
-    }, correctAnsweres);
+    }, 0);
     const newScore = Math.round((score / correctAnswers.length) * 100);
 
     setUserScore(newScore);

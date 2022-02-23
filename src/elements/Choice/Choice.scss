@@ -2,7 +2,6 @@
   font-size: 12px;
   padding-left: 15px;
   display: flex;
-  cursor: pointer;
   margin: 15px 0 0 0;
   padding-right: 10px;
   display: flex;
@@ -19,6 +18,7 @@
     border: 1px solid rgb(201, 201, 201);
     border-radius: 2px;
     padding: 5px 8px 5px 15px;
+    cursor: pointer;
 
     &-order {
       color: #f617c5fa;

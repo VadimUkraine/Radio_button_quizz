@@ -7,6 +7,7 @@ import {
   ResponseDeclaration,
 } from '../../pages/Quizz/types';
 import { CheckMarkIcon } from '../../assets/icons/CheckMarkIcon';
+import { CrossMarkIcon } from '../../assets/icons/CrossMarkIcon';
 
 export type ChoiceProps = {
   choice: QuizzChoice;
@@ -34,35 +35,39 @@ export const Choice: FC<ChoiceProps> = ({
   isFreezeSelection,
   isKeepSelection,
 }: ChoiceProps): ReactElement => {
-  const isCorrectChoiceSelected = useMemo(() => {
-    if (
-      isValidationMode ||
-      ((isFreezeSelection || isKeepSelection) && !isValidationMode)
-    ) {
-      const selectedChoice = selectedChoices.find(
+  const rightSelectedChoice = useMemo(
+    () =>
+      selectedChoices.find(
         (el) =>
           el.choice ===
           correctAnswers.filter(
             (item) => item.identifier === responseIdentifier
           )[0].correctResponse.value
-      );
+      ),
+    [correctAnswers, selectedChoices, responseIdentifier]
+  );
 
-      return selectedChoice?.choice === choice.identifier;
+  const isCorrectChoiceSelected = useMemo(() => {
+    if (
+      isValidationMode ||
+      ((isFreezeSelection || isKeepSelection) && !isValidationMode)
+    ) {
+      return rightSelectedChoice?.choice === choice.identifier;
     }
 
     return false;
-  }, [correctAnswers, selectedChoices, isValidationMode, isFreezeSelection]);
+  }, [
+    isValidationMode,
+    isFreezeSelection,
+    isKeepSelection,
+    choice,
+    rightSelectedChoice,
+  ]);
 
-  const isSelected = useMemo(() => {
-    const selectedChoice = selectedChoices.find(
-      (el) => el.choice === choice.identifier
-    );
-    if (selectedChoice) {
-      return true;
-    }
-
-    return false;
-  }, [selectedChoices]);
+  const isSelected = useMemo(
+    () => !!selectedChoices.find((el) => el.choice === choice.identifier),
+    [selectedChoices]
+  );
 
   const choiceContentClasses = useMemo(() => {
     if (isSelected && !isCorrectChoiceSelected) {
@@ -75,6 +80,14 @@ export const Choice: FC<ChoiceProps> = ({
 
     return 'choice__content';
   }, [isSelected, isCorrectChoiceSelected]);
+
+  const isSelectedWrongly = useMemo(() => {
+    if (isValidationMode) {
+      return isSelected && !rightSelectedChoice;
+    }
+
+    return false;
+  }, [isValidationMode, rightSelectedChoice, isSelected]);
 
   return (
     <p
@@ -92,6 +105,7 @@ export const Choice: FC<ChoiceProps> = ({
         {choice.text}
       </span>
       {isCorrectChoiceSelected && <CheckMarkIcon />}
+      {isSelectedWrongly && <CrossMarkIcon />}
     </p>
   );
 };

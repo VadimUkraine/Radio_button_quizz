@@ -2,6 +2,7 @@ import React from 'react';
 
 export const CheckListIcon = () => (
   <svg
+    version="1.1"
     viewBox="0 0 300.396 300.396"
     width="18px"
     height="18px"
